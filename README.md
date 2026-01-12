@@ -1,3 +1,30 @@
+# Clone this repo
+ * `git clone https://github.com/aananthcn/cariq_ui-lvgl.git`
+ * `git submodule update --init --recursive`
+
+<br>
+
+# Build Commands
+## Install dependencies:
+ * `conan install . --output-folder=build --build=missing`
+
+## Configure:
+##### Option A
+ * `cd build`
+ * `cmake .. -G Ninja -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DLV_CONF_INCLUDE_SIMPLE=1`
+##### Option B
+ * `cmake --preset conan-release`
+
+
+## Build
+##### Option A
+ * `cmake --build .`
+##### Option B
+ * `cmake --build --preset conan-release`
+
+
+<br>
+
 # Installations
 
 ## Windows
@@ -37,14 +64,34 @@ PATH+=(path)C:/msys64/mingw64/bin
 ```
 
 
-# Build Commands
-## Install dependencies:
- * `conan install . --output-folder=build --build=missing`
 
-## Configure:
- * `cd build`
- * `cmake .. -G Ninja -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DLV_CONF_INCLUDE_SIMPLE=1`
+## MacOS
+Follow these steps
+ * If xcode is not installed
+   * `xcode-select --install`
+ * If Homebrew is not installed
+   * `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
+ * Install packages required for this project
+   * `brew install conan cmake ninja sdl2`
+ * Update conan center
+   * `conan remote update conancenter --url https://center2.conan.io`
+ * Create or Update default profiel
+   * `conan profile detect --force`
+   * And it should contain the following
+     ```
+	 [settings]
+	 arch=armv8
+	 build_type=Release
+	 compiler=apple-clang
+	 compiler.cppstd=gnu17
+	 compiler.libcxx=libc++
+	 compiler.version=17
+	 os=Macos
+	 ```
 
-## Build
- * `cmake --build .`
+
+
+
+
+
 
